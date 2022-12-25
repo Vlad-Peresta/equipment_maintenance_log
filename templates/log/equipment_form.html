@@ -1,0 +1,136 @@
+{% extends 'layouts/base-fullscreen.html' %}
+{% load static %}
+{% load log_tags %}
+
+{% block title %} {{ object|yesno:"Update equipment data,Add equipment" }} {% endblock title %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %}{% endblock body_class %}
+
+{% block content %}
+
+  {% include "includes/navigation.html" %}
+  {% if object %}
+    {% include "includes/modal_delete_equipment.html" %}
+  {% endif %}
+
+  <section>
+    <div class="page-header section-height-100">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto mt-4">
+            <div class="card card-plain mt-6">
+              <div class="card-header pb-0 text-left">
+
+                <h4 class="font-weight-bolder">
+                  {{ object|yesno:"Update equipment data,Add equipment" }}
+                </h4>
+                <p class="mb-0">
+                  {{ object|yesno:"Change equipment data,Add new equipment" }}
+                </p>
+
+              </div>
+              <div class="card-body">
+                <form method="post" action="" role="form">
+                  {% csrf_token %}
+
+                  <div class="mb-3">
+                    {{ form.name }}
+                  </div>
+                  <span class="text-error">{{ form.name.errors }}</span>
+
+                  <div class="mb-3">
+                    {{ form.inventory_number }}
+                  </div>
+                  <span class="text-error">{{ form.inventory_number.errors }}</span>
+
+                  <div class="mb-3">
+                    {{ form.type }}
+                  </div>
+                  <span class="text-error">{{ form.type.errors }}</span>
+
+                  <div class="text-center mt-4">
+                    <button
+                        type="submit"
+                        class="btn bg-gradient-primary w-auto me-1 mb-1 mt-2"
+                    >
+                      {{ object|yesno:"Update,Create" }}
+                    </button>
+
+                    <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-gradient-primary w-auto me-1 mb-1 mt-2">
+                      Back
+                    </a>
+
+                    {% if object %}
+                      <!-- Button trigger modal -->
+                      <a href="{% url 'log:equipment-delete' pk=equipment.id %}"
+                         type="button" class="btn bg-gradient-danger w-auto me-1 mb-1 mt-2"
+                         data-bs-toggle="modal"
+                         data-bs-target="#modal_delete_equipment"
+                      >
+                        Delete
+                      </a>
+                    {% endif %}
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+          <div
+              class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+            <div
+                class="position-relative bg-gradient-primary h-100 m-3 px-4 border-radius-lg d-flex flex-column justify-content-center">
+              <img src="{% static 'assets/img/shapes/pattern-lines.svg' %}" alt="pattern-lines"
+                   class="position-absolute opacity-4 start-0">
+
+              <div class="position-relative">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
+                      <div class="row">
+
+                        <div class="col-md-6 position-relative">
+                          <div class="p-3 text-center">
+                            <h1 class="text-gradient text-primary" id="active_failures"
+                                countTo="{% active_failures_amount %}">
+                              0</h1>
+                            <h5 class="mt-3">Active failures</h5>
+                            <p class="text-sm">which must be completed as soon as possible</p>
+                          </div>
+                          <hr class="vertical dark">
+                        </div>
+
+                        <div class="col-md-6 position-relative">
+                          <div class="p-3 text-center">
+                            <h1 class="text-gradient text-primary" id="equipment_number" countTo="{% equipment_number %}">
+                              0</h1>
+                            <h5 class="mt-3">Number of equipment</h5>
+                            <p class="text-sm">the total number of production equipment</p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}
+
+{% block javascripts %}
+
+  <script src="{% static 'assets/js/countup.min.js' %}"></script>
+  <script src="{% static 'assets/js/counters.min.js' %}"></script>
+
+{% endblock javascripts %}

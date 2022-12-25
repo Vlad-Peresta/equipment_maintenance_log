@@ -1,0 +1,104 @@
+{% load static %}
+<button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation"
+        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon mt-2">
+        <span class="navbar-toggler-bar bar1"></span>
+        <span class="navbar-toggler-bar bar2"></span>
+        <span class="navbar-toggler-bar bar3"></span>
+      </span>
+</button>
+
+<div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 ms-lg-7 ps-lg-5" id="navigation">
+  <ul class="navbar-nav navbar-nav-hover w-100">
+
+    <li class="nav-item dropdown dropdown-hover mx-2   ms-lg-5">
+      <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages"
+         data-bs-toggle="dropdown" aria-expanded="false">
+        Workers
+        <img src="{% static 'assets/img/down-arrow-dark.svg' %}" alt="down-arrow" class="arrow ms-1">
+      </a>
+      <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-0 mt-lg-3"
+           aria-labelledby="dropdownMenuPages">
+
+        <a href="{% url 'worker:worker-list' %}" class="dropdown-item border-radius-md">
+          Qualified Technical Staff
+        </a>
+
+        <a href="{% url 'worker:worker-create' %}" class="dropdown-item border-radius-md">
+          Register new worker
+        </a>
+
+        <a href="{% url 'worker:worker-detail' pk=user.id %}" class="dropdown-item border-radius-md">
+          Personal data
+        </a>
+
+      </div>
+    </li>
+
+    <li class="nav-item dropdown dropdown-hover mx-2">
+      <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages"
+         data-bs-toggle="dropdown" aria-expanded="false">
+        Tasks
+        <img src="{% static 'assets/img/down-arrow-dark.svg' %}" alt="down-arrow" class="arrow ms-1">
+      </a>
+      <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-0 mt-lg-3"
+           aria-labelledby="dropdownMenuPages">
+
+
+        <a href="{% url 'task:task-list' %}" class="dropdown-item border-radius-md">
+          Tasks
+        </a>
+
+        <a href="{% url 'task:task-create' %}" class="dropdown-item border-radius-md">
+          Create task
+        </a>
+
+        <a href="{% url 'task:task-type-list' %}" class="dropdown-item border-radius-md">
+          Task types
+        </a>
+
+      </div>
+    </li>
+
+    <li class="nav-item dropdown dropdown-hover mx-2">
+      <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages"
+         data-bs-toggle="dropdown" aria-expanded="false">
+        Breakdowns
+        <img src="{% static 'assets/img/down-arrow-dark.svg' %}" alt="down-arrow" class="arrow ms-1">
+      </a>
+      <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-0 mt-lg-3"
+           aria-labelledby="dropdownMenuPages">
+
+        <a href="{% url 'log:log-list' %}" class="dropdown-item border-radius-md">
+          List of Equipment Failures
+        </a>
+
+        <a href="{% url 'log:log-create' %}" class="dropdown-item border-radius-md">
+          Add a new entry to the log
+        </a>
+
+        <a href="{% url 'log:equipment-type-list' %}" class="dropdown-item border-radius-md">
+          Equipment types
+        </a>
+
+        <a href="{% url 'log:equipment-list' %}" class="dropdown-item border-radius-md">
+          Equipment
+        </a>
+
+        <a href="{% url 'log:breakdown-type-list' %}" class="dropdown-item border-radius-md">
+          Breakdown types
+        </a>
+
+      </div>
+    </li>
+
+    <li class="nav-item ms-lg-auto">
+      <a class="nav-link nav-link-icon me-2" href="{% url 'worker:worker-logout' %}">
+        <i class="fa fa-sign-out me-1"></i>
+        <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom"
+           title="Logout">Logout</p>
+      </a>
+    </li>
+
+  </ul>
+</div>

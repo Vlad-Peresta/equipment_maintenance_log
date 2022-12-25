@@ -1,0 +1,78 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+  {% include "includes/navigation-light.html" %}
+
+  <div class="container mt-5">
+    <div class="row">
+      <h1 class="mb-4">
+        Task List
+        <a href="{% url 'task:task-create' %}" class="btn btn-primary btn-lg float-end  mt-2">
+          Create new task
+        </a>
+      </h1>
+
+      <form action="" method="get">
+        {% csrf_token %}
+
+        <div class="row">
+
+          <div class="form-group col-md-10 mb-4">
+            <div class="input-group">
+              {{ search_form.searched_task}}
+              <button class="btn btn-outline-primary mb-0 fas fa-search" type="submit"></button>
+            </div>
+          </div>
+
+          <div class="form-check col-md-2 pt-2 mb-4">
+            {{ search_form.searched_complete_status }}
+            {{ search_form.searched_complete_status.label }}
+          </div>
+
+        </div>
+      </form>
+
+      <div class="col-lg-12 mx-auto">
+        <div class="position-relative overflow-auto shadow-lg mb-7">
+
+          {% if task_list %}
+            <table class="table table-bordered mb-0 table-hover">
+              <tr class="thead-dark" style="transform: rotate(0);">
+                <th>ID</th>
+                <th>Task type</th>
+                <th>Name</th>
+                <th>Priority</th>
+                <th>Deadline</th>
+                <th>Is completed</th>
+              </tr>
+              {% for task in task_list %}
+                <tr class="block" style="transform: rotate(0);">
+                  <td>
+                    <a href="{% url 'task:task-detail' pk=task.id %}"
+                       class="stretched-link"
+                    >
+                      {{ task.id }}
+                    </a>
+                  </td>
+                  <td>{{ task.task_type }}</td>
+                  <td>{{ task.name }}</td>
+                  <td>{{ task.priority }}</td>
+                  <td>{{ task.deadline }}</td>
+                  <td>{{ task.is_completed }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+
+          {% else %}
+            <p>There are no tasks</p>
+          {% endif %}
+        </div>
+      </div>
+
+      {% include 'includes/pagination.html' %}
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends 'layouts/base-fullscreen.html' %}
+{% load static %}
+{% load worker_tags %}
+
+{% block title %} Detail info {% endblock title %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %}{% endblock body_class %}
+
+{% block content %}
+
+  {% include "includes/navigation.html" %}
+  {% include "includes/modal_delete_worker.html" %}
+  <section>
+    <div class="page-header section-height-100">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto mt-4">
+            <div class="card card-plain mt-6">
+              <div class="card-header pb-0 text-left">
+                <h4 class="font-weight-bolder">Personal data</h4>
+                <p class="mb-0">
+                  Worker credentials
+                </p>
+              </div>
+              <div class="card-body">
+
+                <nav aria-label="breadcrumb">
+                  <label>Username</label>
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">
+                      {{ worker.username }}
+                    </li>
+                  </ol>
+                </nav>
+
+                <nav aria-label="breadcrumb">
+                  <label>First name</label>
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">
+                      {{ worker.first_name }}
+                    </li>
+                  </ol>
+                </nav>
+
+                <nav aria-label="breadcrumb">
+                  <label>Last name</label>
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">
+                      {{ worker.last_name }}
+                    </li>
+                  </ol>
+                </nav>
+
+                <nav aria-label="breadcrumb">
+                  <label>Position</label>
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">
+                      {{ worker.position }}
+                    </li>
+                  </ol>
+                </nav>
+
+              </div>
+
+              <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                <a href="{% url 'worker:worker-update' pk=worker.id %}"
+                   class="btn bg-gradient-primary w-auto me-1 mb-1  mt-2">
+                  Update date
+                </a>
+
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-gradient-primary w-auto me-1 mb-1 mt-2">
+                  Back
+                </a>
+
+                <!-- Button trigger modal -->
+                <a href="{% url 'worker:worker-delete' pk=worker.id %}"
+                   type="button" class="btn bg-gradient-danger w-auto me-1 mb-1 mt-2"
+                   data-bs-toggle="modal"
+                   data-bs-target="#modal_delete_worker"
+                >
+                  Delete account
+                </a>
+
+              </div>
+            </div>
+          </div>
+
+          <div
+              class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+            <div
+                class="position-relative bg-gradient-primary h-100 m-3 px-4 border-radius-lg d-flex flex-column justify-content-center">
+              <img src="{% static 'assets/img/shapes/pattern-lines.svg' %}" alt="pattern-lines"
+                   class="position-absolute opacity-4 start-0">
+
+              <div class="position-relative">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
+                      <div class="row">
+
+                        <div class="col-md-6 position-relative">
+                          <div class="p-3 text-center">
+                            <h1 class="text-gradient text-primary" id="repaired_equipment"
+                                countTo="{% repaired_equipment_by_worker worker_id=worker.id %}">
+                              0</h1>
+                            <h5 class="mt-3">Repaired equipment</h5>
+                            <p class="text-sm">the total number of repair performed by {{ worker }}</p>
+                          </div>
+                          <hr class="vertical dark">
+                        </div>
+
+                        <div class="col-md-6 position-relative">
+                          <div class="p-3 text-center">
+                            <h1 class="text-gradient text-primary" id="performed_tasks"
+                                countTo="{% performed_tasks_by_worker worker_id=worker.id %}">
+                              0</h1>
+                            <h5 class="mt-3">Performed tasks</h5>
+                            <p class="text-sm">the total number of completed tasks by {{ worker }}</p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}
+
+{% block javascripts %}
+
+  <script src="{% static 'assets/js/countup.min.js' %}"></script>
+  <script src="{% static 'assets/js/counters.min.js' %}"></script>
+
+{% endblock javascripts %}

@@ -1,0 +1,62 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+  {% include "includes/navigation-light.html" %}
+
+  <div class="container mt-5">
+    <div class="row">
+
+      <h1 class="mb-4">
+        Equipment types
+        <a href="{% url 'log:equipment-type-create' %}" class="btn btn-primary btn-lg float-end  mt-2">
+          Add new equipment type
+        </a>
+      </h1>
+
+      <form action="" method="get">
+        {% csrf_token %}
+
+        <div class="form-group mb-4">
+          <div class="input-group">
+            {{ search_form.searched_equipment_type }}
+            <button class="btn btn-outline-primary mb-0 fas fa-search" type="submit"></button>
+          </div>
+        </div>
+      </form>
+
+      <div class="col-lg-12 mx-auto">
+        <div class="position-relative overflow-auto shadow-lg mb-7">
+
+          {% if equipment_type_list %}
+            <table class="table table-bordered mb-0 table-hover">
+              <tr class="thead-dark" style="transform: rotate(0);">
+                <th>ID</th>
+                <th>Equipment type name</th>
+              </tr>
+              {% for type in equipment_type_list %}
+                <tr class="block" style="transform: rotate(0);">
+                  <td>
+                    <a href="{% url 'log:equipment-type-update' pk=type.id %}"
+                       class="stretched-link"
+                    >
+                      {{ type.id }}
+                    </a>
+                  </td>
+                  <td>{{ type.name }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+
+          {% else %}
+            <p>There are no equipment types</p>
+          {% endif %}
+        </div>
+      </div>
+
+      {% include 'includes/pagination.html' %}
+
+    </div>
+  </div>
+
+{% endblock %}

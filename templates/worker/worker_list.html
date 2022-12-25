@@ -1,0 +1,68 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+  {% include "includes/navigation-light.html" %}
+  <div class="container mt-5">
+    <div class="row">
+      <h1 class="mb-4">Qualified Technical Staff</h1>
+
+      <form action="" method="get">
+        {% csrf_token %}
+        <div class="row">
+
+          <div class="form-group col-md-12 mb-4">
+            <div class="input-group">
+              {{ search_form.searched_worker }}
+              <button class="btn btn-outline-primary mb-0 fas fa-search" type="submit"></button>
+            </div>
+          </div>
+
+        </div>
+      </form>
+
+      <div class="col-lg-12 mx-auto">
+        <div class="position-relative overflow-auto shadow-lg mb-7">
+
+          {% if worker_list %}
+            <table class="table table-bordered mb-0  table-hover">
+              <tr style="transform: rotate(0);">
+                <th>ID</th>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Position</th>
+                <th>Email</th>
+              </tr>
+              {% for worker in worker_list %}
+                <tr class="block" style="transform: rotate(0);">
+                  <td>
+                    <a href="{% url 'worker:worker-detail' pk=worker.id %}"
+                       class="stretched-link"
+                    >
+                      {{ worker.id }}
+                    </a>
+                  </td>
+                  <td>
+                    {{ worker.username }} {% if user == worker %} (Me){% endif %}
+                  </td>
+                  <td>{{ worker.first_name }}</td>
+                  <td>{{ worker.last_name }}</td>
+                  <td>{{ worker.position }}</td>
+                  <td>{{ worker.email }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+
+          {% else %}
+            <p>There are no workers</p>
+          {% endif %}
+        </div>
+      </div>
+
+      {% include 'includes/pagination.html' %}
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,111 @@
+from django.urls import path
+
+from log.views import (
+    index,
+    BreakdownListView,
+    EquipmentTypeListView,
+    EquipmentTypeCreateView,
+    EquipmentTypeUpdateView,
+    EquipmentTypeDeleteView,
+    EquipmentListView,
+    EquipmentCreateView,
+    EquipmentUpdateView,
+    EquipmentDeleteView,
+    BreakdownTypeListView,
+    BreakdownTypeCreateView,
+    BreakdownTypeUpdateView,
+    BreakdownTypeDeleteView,
+    BreakdownCreateView,
+    BreakdownUpdateView,
+    BreakdownDeleteView,
+    BreakdownDetailView,
+    toggle_perform_repair,
+)
+
+app_name = "log"
+
+urlpatterns = [
+    path("", index, name="index"),
+    path("logs/", BreakdownListView.as_view(), name="log-list"),
+    path(
+        "logs/<int:pk>/detail/",
+        BreakdownDetailView.as_view(),
+        name="log-detail"
+    ),
+    path("logs/create/", BreakdownCreateView.as_view(), name="log-create"),
+    path(
+        "logs/<int:pk>/update/",
+        BreakdownUpdateView.as_view(),
+        name="log-update"
+    ),
+    path(
+        "logs/<int:pk>/delete/",
+        BreakdownDeleteView.as_view(),
+        name="log-delete"
+    ),
+    path(
+        "logs/<int:pk>/breakdown_complete/",
+        toggle_perform_repair,
+        name="toggle-perform-repair",
+    ),
+    path(
+        "logs/equipment_types/",
+        EquipmentTypeListView.as_view(),
+        name="equipment-type-list",
+    ),
+    path(
+        "logs/equipment_types/create/",
+        EquipmentTypeCreateView.as_view(),
+        name="equipment-type-create",
+    ),
+    path(
+        "logs/equipment_types/<int:pk>/update/",
+        EquipmentTypeUpdateView.as_view(),
+        name="equipment-type-update",
+    ),
+    path(
+        "logs/equipment_types/<int:pk>/delete/",
+        EquipmentTypeDeleteView.as_view(),
+        name="equipment-type-delete",
+    ),
+    path(
+        "logs/equipment/",
+        EquipmentListView.as_view(),
+        name="equipment-list"
+    ),
+    path(
+        "logs/equipment/create/",
+        EquipmentCreateView.as_view(),
+        name="equipment-create"
+    ),
+    path(
+        "logs/equipment/<int:pk>/update/",
+        EquipmentUpdateView.as_view(),
+        name="equipment-update",
+    ),
+    path(
+        "logs/equipment/<int:pk>/delete/",
+        EquipmentDeleteView.as_view(),
+        name="equipment-delete",
+    ),
+    path(
+        "logs/breakdown_types/",
+        BreakdownTypeListView.as_view(),
+        name="breakdown-type-list",
+    ),
+    path(
+        "logs/breakdown_types/create/",
+        BreakdownTypeCreateView.as_view(),
+        name="breakdown-type-create",
+    ),
+    path(
+        "logs/breakdown_types/<int:pk>/update/",
+        BreakdownTypeUpdateView.as_view(),
+        name="breakdown-type-update",
+    ),
+    path(
+        "logs/breakdown_types/<int:pk>/delete/",
+        BreakdownTypeDeleteView.as_view(),
+        name="breakdown-type-delete",
+    ),
+]
